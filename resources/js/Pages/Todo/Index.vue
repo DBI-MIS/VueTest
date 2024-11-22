@@ -12,18 +12,9 @@ const props = defineProps({
 });
 
 const deleteTask = (taskId: number) => {
-    if (confirm('Are you sure you want to delete this task?')) {
-        router.delete(`/todo/${taskId}`,
-            {
-                onSuccess: () => {
-                    alert('Task deleted successfully!');
-                },
-                onError: (errors) => {
-                    alert('An error occurred while deleting the task.');
-                }
-            });
-    }
+    router.delete(`/todo/${taskId}`);
 };
+
 
 
 </script>
@@ -44,7 +35,8 @@ const deleteTask = (taskId: number) => {
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-xs sm:rounded-lg dark:bg-gray-800">
                     <div class="p-6 text-gray-900 dark:text-gray-100 w-full">
-                        <Link class="bg-emerald-300 py-2 px-4 rounded-xl text-gray-700 float-right" :href="route('tasks.create')">
+                        <Link class="bg-emerald-300 py-2 px-4 rounded-xl text-gray-700 float-right"
+                            :href="route('tasks.create')">
                         <span>Create</span>
                         </Link>
 

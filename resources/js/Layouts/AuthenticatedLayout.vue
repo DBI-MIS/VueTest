@@ -99,13 +99,16 @@ const showingNavigationDropdown = ref(false);
                                 </Dropdown>
                                
                             </div>
-                            <div>
+                                <div>
                                  <DarkModeSwitcher />
                                 </div>
                         </div>
 
                         <!-- Hamburger -->
                         <div class="-me-2 flex items-center sm:hidden">
+                            <div>
+                                 <DarkModeSwitcher />
+                                </div>
                             <button
                                 @click="
                                     showingNavigationDropdown =

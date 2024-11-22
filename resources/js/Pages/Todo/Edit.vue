@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
     task: Object,
@@ -13,7 +14,6 @@ const form = useForm({
 function submit() {
     form.put(`/todo/${props.task.id}`, {
         onSuccess: () => {
-            // Redirect to the task list or provide feedback
         },
     });
 }
