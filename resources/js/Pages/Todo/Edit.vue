@@ -1,21 +1,28 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Task } from '@/types/index';
 
 const props = defineProps({
-    task: Object,
+    task: Object as () => Task,
 });
 
 const form = useForm({
-    title: props.task.title,
-    description: props.task.description, // Initialize the form with the current task title
+    title: props.task?.title || '', 
+    description: props.task?.description || '', 
 });
 
 function submit() {
-    form.put(`/todo/${props.task.id}`, {
-        onSuccess: () => {
-        },
-    });
+    if (props.task) {
+        form.put(`/todo/${props.task.id}`, {
+            onSuccess: () => {
+                // Handle success
+            },
+        });
+    } else {
+        // Handle case where task is undefined
+        console.error('Task is undefined');
+    }
 }
 </script>
 

@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { Inertia } from '@inertiajs/inertia';
-import { ref } from 'vue'
-import Modal from '@/Components/Modal.vue';
+import { ref } from 'vue';
+import { Task } from '@/types/index';
 
 const title = ref('Todo')
 
 const showModal = ref(false)
 
 const props = defineProps({
-    tasks: Array
+    tasks: Array as () => Task[]
 });
 
 const deleteTask = (taskId: number) => {
