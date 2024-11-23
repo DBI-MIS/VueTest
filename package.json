@@ -31,6 +31,7 @@
         "vue-tsc": "^2.0.24"
     },
     "dependencies": {
+        "@formkit/auto-animate": "^0.8.2",
         "@heroicons/vue": "^2.2.0"
     }
 }
