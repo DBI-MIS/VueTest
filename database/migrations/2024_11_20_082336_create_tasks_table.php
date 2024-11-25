@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->nullable();
             $table->string('title');
             $table->longText('description')->nullable();
+            $table->boolean('is_completed')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
