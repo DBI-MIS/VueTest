@@ -15,6 +15,28 @@ export interface Task {
     user?: User;
 }
 
+// export interface User {
+//     id: number;
+//     name: string;
+//     email: string;
+//     email_verified_at?: string;
+//     tasks?: (Task & { pivot: TaskUserPivot })[];
+// }
+
+// export interface Task {
+//     id: number;
+//     title: string;
+//     description?: string;
+//     is_completed: boolean;
+//     user?: User;
+//     users?: (User & { pivot: TaskUserPivot })[];
+// }
+
+// export interface TaskUserPivot extends Pivot {
+//     role: string; // Example additional field
+//     assigned_at: string;
+// }
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

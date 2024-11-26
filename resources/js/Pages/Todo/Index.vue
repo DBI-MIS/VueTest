@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
-import { onMounted, ref } from 'vue';
+import { defineProps, onMounted, ref, watchEffect, watch, computed } from 'vue';
 import { Task } from '@/types/index';
 import Modal from '@/Components/Modal.vue';
 import AddButton from '@/Components/AddButton.vue';
@@ -10,20 +10,37 @@ import DeleteButton from '@/Components/DeleteButton.vue';
 import ShuffleButton from '@/Components/ShuffleButton.vue';
 
 const title = ref('Todo');
-const tasks = ref<Task[]>([]);
+// const tasks = ref<Task[]>([]);
+const tasks = computed(() => props.tasks);
 const newTask = ref({ title: '', description: '' });
 const selectedTask = ref<Task | null>(null);
 const showAddModal = ref(false);
 const showEditModal = ref(false);
 
 const props = defineProps({
-    tasks: Array as () => Task[],
+    tasks: {
+        type: Array as () => Task[],
+        required: true
+    }
 });
 
 
-onMounted(() => {
-    tasks.value = props.tasks || [];
-});
+// onMounted(() => {
+//     tasks.value = props.tasks || [];
+// });
+
+
+// watchEffect(() => {
+//     if (newTask.value && (newTask.value.title || newTask.value.description)) {
+//         watch(
+//             () => tasks.value,
+//             (newTasks) => {
+//                 tasks.value = newTasks || [];
+//             },
+//             { immediate: true }
+//         );
+//     }
+// });
 
 
 function newTodo() {
@@ -34,14 +51,19 @@ function newTodo() {
 
     router.post('/todo', newTask.value, {
         onSuccess: () => {
-            tasks.value.push({
+            props.tasks.push({
                 ...newTask.value, id: Date.now(),
                 is_completed: false
             });
             newTask.value = { title: '', description: '' };
             showAddModal.value = false;
 
-        }
+        },
+        // onFinish: () => {
+        //     // router.visit('/todo');
+        //     router.reload();
+        // }
+
     });
 }
 
@@ -63,7 +85,7 @@ function editTodo() {
 }
 
 function shuffle() {
-    tasks.value.sort(() => 0.5 - Math.random());
+    props.tasks.sort(() => 0.5 - Math.random());
 }
 
 function deleteTask(taskId: number) {
@@ -73,13 +95,22 @@ function deleteTask(taskId: number) {
 
     router.delete(`/todo/${taskId}`, {
         onSuccess: () => {
-            tasks.value = tasks.value.filter(task => task.id !== taskId);
+            // tasks.value = tasks.value.filter(task => task.id !== taskId);
+            const taskIndex = props.tasks.findIndex((task: Task) => task.id === taskId);
+            if (taskIndex !== -1) {
+                props.tasks.splice(taskIndex, 1);
+            }
         },
         onError: () => {
             alert('Failed to delete the task.');
-        }
+        },
+        // onFinish: () => {
+        //     // router.visit('/todo');
+        //     router.reload();
+        // }
     });
 }
+
 </script>
 
 <template>
@@ -157,7 +188,6 @@ function deleteTask(taskId: number) {
 
                         <Modal :show="showEditModal" @close="showEditModal = false">
                             <form @submit.prevent="editTodo" class="w-full relative">
-                                <!-- Add a conditional rendering to ensure selectedTask is not null -->
                                 <div v-if="selectedTask">
                                     <input v-model="selectedTask.title" placeholder="Task Title"
                                         class="w-full mb-2 px-4 py-2 border rounded" required />

@@ -1,20 +1,4 @@
-<template>
-    <div>
-      <button @click="toggleDarkMode" class="p-2  text-white rounded-md flex items-center">
-        <!-- Conditionally render the icons based on the dark mode state -->
-        <template v-if="isDarkMode">
-          <MoonIcon class="h-5 w-5 text-yellow-400" />
-          
-        </template>
-        <template v-else>
-          <SunIcon class="h-5 w-5 text-yellow-500" />
-          
-        </template>
-      </button>
-    </div>
-  </template>
-  
-  <script lang="ts">
+<script lang="ts">
   import { ref, onMounted } from 'vue';
   import { MoonIcon, SunIcon } from '@heroicons/vue/24/solid'; // Import Heroicons
   
@@ -56,8 +40,19 @@
     },
   };
   </script>
+
+<template>
+    <div>
+      <button @click="toggleDarkMode" class="p-2  text-white rounded-md flex items-center">
+        <template v-if="isDarkMode">
+          <MoonIcon class="h-5 w-5 text-yellow-400" />
+        </template>
+        <template v-else>
+          <SunIcon class="h-5 w-5 text-yellow-500" />
+        </template>
+      </button>
+    </div>
+  </template>
   
-  <style scoped>
-  /* Tailwind CSS classes are used directly in template, no need for extra CSS here */
-  </style>
+  
   
