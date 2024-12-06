@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import DragDrop from './DragDrop.vue';
 
+
 </script>
 
 <template>
@@ -24,6 +25,10 @@ import DragDrop from './DragDrop.vue';
                     </div>
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <DragDrop />
+                    </div>
+
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        
                     </div>
                     
                     

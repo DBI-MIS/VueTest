@@ -65,7 +65,7 @@ function onDrop(evt: DragEvent, list: number) {
     const itemID = evt.dataTransfer.getData('itemID');
     const item = items.value.find((item) => item.id === parseInt(itemID, 10));
     if (item) {
-        item.list = list; // Update the item's list property
+        item.list = list;
         console.log(`Item ${itemID} moved to list ${list}`); // Debugging
     }
 }
@@ -75,6 +75,7 @@ function onDrop(evt: DragEvent, list: number) {
 
 <template>
     <div class="flex felx-row gap-2 px-2">
+        
         <!-- Drop Zone 1 -->
         <div
             class=" bg-gray-200 mb-[10px] p-[10px] w-[300px] text-center h-max rounded-xl"
